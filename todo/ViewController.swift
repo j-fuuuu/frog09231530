@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+    
     //storyboardで使うtable viewを宣言
     @IBOutlet var table: UITableView!
     
@@ -56,9 +56,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             try! realm.write {
                 let item = todoList[indexPath.row]
                 realm.delete(item)
-                }
+            }
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // セルの選択を解除
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        // 別の画面に遷移
+        performSegue(withIdentifier: "editMemo", sender: nil)
     }
+    
+}
